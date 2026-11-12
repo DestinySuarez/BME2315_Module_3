@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from pathlib import Path
 
 def Fact(L1, L2, Kd1, Kd2):
     """Fractional receptor activation with two agonists L1 and L2"""
@@ -15,7 +16,8 @@ L1 = 0.015 # [nM] GLP1 (fasting)
 L2 = np.logspace(-3, 2, 500) # [nM] cavalitide
 
 # Load the data
-data = np.loadtxt("/Users/destinysuarez/Desktop/Computational BME/Module 3/BME2315_Module_3-main/cavalitide_data.csv", delimiter=",", skiprows=1)
+data_path = Path(__file__).parent / "cavalitide_data.csv"
+data = np.loadtxt(data_path, delimiter=",", skiprows=1)
 L2_loaded, Fact_loaded = data[:, 0], data[:, 1]
 
 # Approach 1: Brute force optimization of Kd2: try many candidate values in a for loop
@@ -53,3 +55,9 @@ plt.ylabel("Fraction active (Fact)")
 plt.title("GLP1R activation by cavalitide with GLP1 present")
 plt.legend(loc="upper left")
 plt.show()
+
+#set parameters
+#def ODE Function (tb,p)
+#def eulars method(ODE,h,y0,time span, p)
+#y,y=eulers method(....)
+#plot(t,y)
