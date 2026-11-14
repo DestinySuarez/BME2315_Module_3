@@ -16,7 +16,7 @@ L1 = 0.015 # [nM] GLP1 (fasting)
 L2 = np.logspace(-3, 2, 500) # [nM] cavalitide
 
 # Load the data
-data_path = Path(__file__).parent / "cavalitide_data.csv"
+data_path = Path("/Users/destinysuarez/Desktop/Computational BME/Module 3/BME2315_Module_3/cavalitide_data.csv")
 data = np.loadtxt(data_path, delimiter=",", skiprows=1)
 L2_loaded, Fact_loaded = data[:, 0], data[:, 1]
 
@@ -41,7 +41,7 @@ print(f"Fitted Kd2 = {Kd2_fit:.3f} nM (SSE = {SSE_fit:.4f})")
 
 plt.figure()
 line, = plt.semilogx(L2, Fact(L1, L2, Kd1, Kd2), lw=2,
-                     label="model prediction")
+                     label="initial model (Kd = 0.38 nM)")
 plt.semilogx(L2_loaded, Fact_loaded, "o", c=line.get_color(),
              label="experimental data")
 plt.semilogx(L2, Fact(L1, L2, Kd1, Kd2_brute), ":", lw=2,
@@ -54,6 +54,13 @@ plt.xlabel("[cavalitide] (nM)")
 plt.ylabel("Fraction active (Fact)")
 plt.title("GLP1R activation by cavalitide with GLP1 present")
 plt.legend(loc="upper left")
+
+plt.savefig(
+    Path(__file__).parent / "cavalitide_fit.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.show()
 
 #set parameters
